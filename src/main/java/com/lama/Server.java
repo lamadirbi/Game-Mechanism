@@ -2,16 +2,24 @@ package com.lama;
 
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.*;
+import com.lama.MathExpressionEvaluator;
+
+import java.io.*;
+import java.net.*;
+import java.util.concurrent.*;
 
 public class Server {
+    private static final int PORT = 2345;
+    private static ExecutorService pool = Executors.newFixedThreadPool(10);
+
     public static void main(String[] args) {
-        try (ServerSocket serverSocket = new ServerSocket(1234)) {
-            System.out.println("Server is listening on port 1234");
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            System.out.println("Calculator Server is listening on port " + PORT);
             while (true) {
-                System.out.println("Waiting for a new client...");
                 Socket socket = serverSocket.accept();
                 System.out.println("New client connected from " + socket.getRemoteSocketAddress());
-                new ClientHandler(socket).start();
+                pool.execute(new ClientHandler(socket));
             }
         } catch (IOException ex) {
             System.out.println("Server exception: " + ex.getMessage());
@@ -19,21 +27,30 @@ public class Server {
         }
     }
 
-    private static class ClientHandler extends Thread {
+    private static class ClientHandler implements Runnable {
         private Socket socket;
 
         public ClientHandler(Socket socket) {
             this.socket = socket;
         }
 
+        @Override
         public void run() {
             try (BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                  PrintWriter output = new PrintWriter(socket.getOutputStream(), true)) {
 
-                String message;
-                while ((message = input.readLine()) != null) {
-                    System.out.println("Received from client [" + socket.getRemoteSocketAddress() + "]: " + message);
-                    output.println("Echo: " + message);
+                String expression;
+                while ((expression = input.readLine()) != null) {
+                    System.out.println("Received expression from client [" + socket.getRemoteSocketAddress() + "]: " + expression);
+                    String result;
+                    try {
+                        double evalResult = MathExpressionEvaluator.evaluate(expression);
+                        result = Double.toString(evalResult);
+                    } catch (IllegalArgumentException | ArithmeticException e) {
+                        System.out.println("Evaluation error: " + e.getMessage());
+                        result = "Error: Invalid expression";
+                    }
+                    output.println(result);
                 }
                 System.out.println("Client disconnected: " + socket.getRemoteSocketAddress());
             } catch (IOException ex) {

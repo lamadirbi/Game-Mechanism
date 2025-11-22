@@ -2,82 +2,83 @@
 
 المقدمة:
 
-يهدف هذا المشروع إلى تصميم وتطوير نظام موزع بسيط يعتمد على نموذج العميل-الخادم. تم تطوير العميل باستخدام JavaFX لإنشاء واجهة مستخدم رسومية تفاعلية، بينما يدار الخادم باستخدام Java Network Programming لاستقبال ومعالجة الرسائل من العملاء وتوفير ردود فورية.
+يهدف هذا المشروع إلى تصميم وتطوير نظام موزع بسيط لآلة حاسبة موزعة. يقوم العميل بإرسال تعبيرات رياضية (مثل 2+3 أو 5*6) إلى الخادم، الذي يقوم بحساب النتيجة وإرجاعها إلى العميل. كما يعتمد العميل على JavaFX لواجهة المستخدم الرسومية، ويستخدم الخادم Java Network Programming لمعالجة الطلبات وحساب النتائج.
 
-تستخدم هذه الوثيقة لتوضيح تفاصيل المشروع، من المفاهيم الأساسية حتى التصميم والتنفيذ، مع شرح عميق لكل مكون من مكونات النظام.
+توضح هذه الوثيقة تفاصيل المشروع، من المفاهيم الأساسية إلى التصميم والتنفيذ، مع شرح كل مكون من مكونات النظام.
 
 الفصول:
 
 1. أهداف المشروع
 يهدف المشروع إلى:
-- استكشاف مفاهيم البرمجة الشبكية باستخدام لغة الجافا.
-- تعلم تصميم وبناء تطبيقات موزعة تعتمد على نموذج العميل-الخادم.
+- استكشاف مفاهيم البرمجة الموزعة عبر تطبيق آلة حاسبة بسيطة.
+- تعلم تصميم نظام موزع باستخدام نموذج العميل-الخادم.
 - بناء واجهة مستخدم رسومية باستخدام JavaFX.
-- التعامل مع العديد من الاتصالات المتزامنة عبر الخادم.
-- التعامل مع الأحداث والأخطاء بطريقة ملائمة.
+- التعامل مع طلبات متزامنة من العملاء.
+- التعامل مع الأحداث والأخطاء بطريقة مناسبة لضمان استقرار النظام.
 
-2. التقنية المستخدمة
+2. التقنيات المستخدمة
 - لغة البرمجة: Java
-- إطار عمل الواجهة: JavaFX
-- تقنيات الشبكة: Sockets TCP/IP
+- إطار العمل للواجهة: JavaFX
+- تقنيات الشبكة: TCP/IP Sockets
 - البيئة التطويرية: Java Development Kit (JDK) وبيئة تطوير متكاملة مثل IntelliJ IDEA أو Eclipse.
 
 3. وصف نظام العميل (Client)
 واجهة المستخدم:
-- تتكون الواجهة من حقل لإدخال النص يسمح للمستخدم بكتابة رسالة معينة.
-- زر لإرسال الرسالة إلى الخادم.
-- منطقة لعرض الردود الواردة من الخادم.
+- حقل لإدخال التعبير الرياضي.
+- زر لإرسال التعبير إلى الخادم.
+- منطقة لعرض النتيجة أو رسائل الخطأ.
 
 آلية الإرسال:
-- عند الضغط على زر الإرسال، يستخرج التطبيق محتوى حقل الإدخال ويرسله عبر اتصال Socket إلى الخادم.
-- يتم التعامل مع استجابة الخادم وعرضها فوراً في منطقة العرض.
+- يتصل العميل بالخادم عبر Socket.
+- يرسل التعبير الرياضي كنص.
+- يعرض النتيجة المستلمة من الخادم.
 
 التعامل مع الأخطاء:
-- إذا كانت رسالة الإدخال فارغة، يعرض التطبيق رسالة تحذيرية للمستخدم.
-- في حالة فشل الاتصال أو وجود مشاكل في الشبكة، يتم إعلام المستخدم برسائل مناسبة.
+- التحقق من صحة الإدخال قبل الإرسال.
+- إظهار رسائل مناسبة في حالة أخطاء الشبكة أو التعبير.
 
 4. وصف نظام الخادم (Server)
-- يستمع الخادم على المنفذ 1234 لاستقبال اتصالات العملاء.
-- لكل اتصال عميل جديد، يتم إنشاء Thread مستقل للتعامل مع هذا العميل.
-- تستقبل الرسائل من العميل ويتم طباعتها على وحدة التحكم (Console).
-- يرسل الخادم رد Echo يتطابق مع الرسالة المستلمة.
+- يستمع الخادم على منفذ محدد لاستقبال طلبات العملاء.
+- لكل اتصال عميل، ينشئ Thread مستقل للتعامل مع الطلبات.
+- يستقبل التعبير الرياضي من العميل، يقوم بتحليله وحسابه بأمان.
+- يرسل النتيجة أو رسالة خطأ إذا كان التعبير غير صالح.
 
 التعامل مع التزامن:
-- استخدام Threads يسمح للخادم بمعالجة اتصالات متعددة في نفس الوقت دون حجب النظام.
-- يتم توفير إدارة آمنة للموارد المشتركة إذا تطلب الأمر.
+- دعم عدة عملاء متصلين في نفس الوقت بواسطة Threads متعددة.
 
 التعامل مع الأخطاء:
-- يعالج الخادم الأخطاء المحتملة مثل فقد الاتصال أو مشاكل الإدخال والإخراج.
+- معالجة أخطاء التحليل الحسابي.
+- التعامل مع انقطاع الاتصال بطريقة مناسبة.
 
 5. بنية النظام
-- يعتمد المشروع على نموذج العميل-الخادم، حيث يقوم العميل بالطلب والخادم بالاستجابة.
-- الاتصال يعتمد على بروتوكول TCP لضمان موثوقية الرسائل.
-- تنفذ كل جلسة اتصال بين العميل والخادم من خلال Socket.
+- يعتمد المشروع على نموذج العميل-الخادم.
+- كل عميل يتصل بالخادم عبر TCP Socket.
+- الخادم يعالج الطلبات ويعيد النتائج بشكل متزامن.
 
 6. تفاصيل التنفيذ
-- شرح مفصل لكود العميل، موضح كيفية إنشاء واجهة JavaFX والربط بالشبكة.
-- شرح مفصل لكود الخادم، موضح كيفية استخدام ServerSocket وThread لإدارة الاتصالات.
+- شرح مفصل لكود العميل، موضح كيفية إنشاء واجهة JavaFX وإرسال التعبير واستقبال النتيجة.
+- شرح مفصل لكود الخادم، مع استخدام ServerSocket وThread لمعالجة الطلبات وحساب النتائج بأمان.
 
 7. التعليمات التشغيلية
 - خطوات تشغيل الخادم.
 - خطوات تشغيل العميل.
-- شرح واجهة المستخدم وتعاملها مع الرسائل.
+- شرح واجهة المستخدم وتعاملها مع الإدخال والنتائج.
 
 8. التحديات والمشكلات
-- مناقشة صعوبات التعامل مع تزامن الاتصالات.
-- كيفية التعامل مع استقرار التطبيق في ظل حدوث أخطاء في الشبكة.
+- تأمين تحليل التعبيرات لتجنب الأخطاء والثغرات.
+- إدارة التزامن وعدم حجب الخادم.
 
 9. التحسينات المحتملة
-- إضافة آلية تسجيل الرسائل.
-- دعم بروتوكولات أخرى.
-- تحسين الواجهة لإضافة ميزات إضافية مثل قائمة الاتصالات النشطة.
+- دعم تعبيرات رياضية أكثر تعقيداً.
+- إضافة واجهة ويب إضافية.
+- تخزين تاريخ العمليات والنتائج.
 
 10. الشاشات والنتائج
-- وصف تفصيلي لشاشة العميل مع عرض أمثلة على الرسائل والردود.
-- وصف للخادم مع لقطات شاشة للـ Console يظهر فيها نشاط الاتصالات.
+- شاشة العميل مع حقل الإدخال وزر الإرسال ومنطقة عرض النتائج.
+- شاشة الخادم مع سجل الطلبات والنتائج.
 
 الخاتمة:
-قدم هذا المشروع نظرة عملية على برمجة تطبيقات موزعة باستخدام الجافا، مع دمج واجهة المستخدم الرسومية في العميل، وإدارة اتصالات متعددة في الخادم بطريقة متزامنة. يعتبر أساساً جيداً لفهم البرمجة الشبكية ومبادئ البرامج الموزعة.
+يقدم المشروع تجربة تعليمية في بناء نظم موزعة بسيطة، تجمع بين البرمجة الشبكية والمعالجة الحسابية، مع التركيز على استقرار وأمان النظام.
 
 ---
 
@@ -85,79 +86,80 @@ Project Documentation
 
 Introduction:
 
-This project aims to design and develop a simple distributed system based on the client-server model. The client is built using JavaFX to create an interactive graphical user interface, while the server is managed using Java Network Programming to receive and process messages from clients and provide immediate responses.
+This project aims to design and develop a simple distributed system for a distributed calculator. The client sends mathematical expressions (such as 2+3 or 5*6) to the server, which calculates the result and returns it to the client. The client uses JavaFX for the graphical user interface, and the server uses Java Network Programming to process requests and compute results.
 
-This document clarifies the project details, from basic concepts through design and implementation, with an in-depth explanation of each system component.
+This document clarifies the project details from basic concepts through design and implementation, explaining each system component.
 
 Chapters:
 
 1. Project Objectives
 The project aims to:
-- Explore network programming concepts using the Java language.
-- Learn to design and build distributed applications based on the client-server model.
+- Explore distributed programming concepts through a simple calculator application.
+- Learn to design a distributed system using the client-server model.
 - Build a graphical user interface using JavaFX.
-- Handle multiple concurrent connections through the server.
-- Effectively manage events and errors.
+- Handle concurrent client requests.
+- Appropriately manage events and errors to ensure system stability.
 
 2. Technologies Used
 - Programming Language: Java
 - UI Framework: JavaFX
 - Network Technologies: TCP/IP Sockets
-- Development Environment: Java Development Kit (JDK) and an Integrated Development Environment such as IntelliJ IDEA or Eclipse.
+- Development Environment: Java Development Kit (JDK) and an IDE such as IntelliJ IDEA or Eclipse.
 
 3. Client System Description
 User Interface:
-- The interface consists of a text input field where users can type a message.
-- A button to send the message to the server.
-- An area to display responses received from the server.
+- A field to enter mathematical expressions.
+- A button to send the expression to the server.
+- An area to display the result or error messages.
 
 Sending Mechanism:
-- When the send button is pressed, the application extracts the content of the input field and sends it through a Socket connection to the server.
-- The server's response is handled and immediately displayed in the display area.
+- The client connects to the server via a Socket.
+- Sends the mathematical expression as text.
+- Displays the result received from the server.
 
 Error Handling:
-- If the input message is empty, the application displays a warning message to the user.
-- If the connection fails or network problems occur, appropriate messages are displayed to the user.
+- Validates input before sending.
+- Shows appropriate messages for network or expression errors.
 
 4. Server System Description
-- The server listens on port 1234 for client connections.
-- For each new client connection, an independent Thread is created to handle the client.
-- Messages are received from the client and printed on the console.
-- The server sends an Echo response matching the received message.
+- The server listens on a specified port for client requests.
+- For each client connection, creates an independent Thread to manage requests.
+- Receives mathematical expressions from clients, parses and safely computes results.
+- Sends the result or an error message if the expression is invalid.
 
 Concurrency Handling:
-- Using Threads allows the server to handle multiple connections simultaneously without blocking the system.
-- Safe management of shared resources is provided if necessary.
+- Supports multiple clients concurrently using multiple Threads.
 
 Error Handling:
-- The server handles potential errors such as connection loss or input/output problems.
+- Handles parsing and computation errors.
+- Appropriately manages disconnections.
 
 5. System Architecture
-- The project is based on the client-server pattern, where the client requests, and the server responds.
-- The connection relies on the TCP protocol to ensure message reliability.
-- Each session between client and server is implemented through a Socket.
+- The project is based on the client-server model.
+- Each client connects to the server via a TCP Socket.
+- The server processes requests and returns results concurrently.
 
 6. Implementation Details
-- Detailed explanation of client code, illustrating how to create the JavaFX interface and network connection.
-- Detailed explanation of server code, demonstrating use of ServerSocket and Thread to manage connections.
+- Detailed explanation of client code showing JavaFX UI creation, sending expressions, and receiving results.
+- Detailed explanation of server code using ServerSocket and Thread for safe expression evaluation.
 
 7. Operational Instructions
-- Steps for running the server.
-- Steps for running the client.
-- Explanation of the user interface and message handling.
+- Steps to start the server.
+- Steps to start the client.
+- Explanation of user interface interactions.
 
 8. Challenges and Issues
-- Discussion of difficulties in managing concurrent connections.
-- How to maintain application stability in the event of network errors.
+- Securing expression evaluation to avoid errors and vulnerabilities.
+- Managing concurrency without blocking the server.
 
 9. Potential Improvements
-- Adding message logging features.
-- Supporting additional protocols.
-- Enhancing the interface to add features such as an active connections list.
+- Supporting more complex mathematical expressions.
+- Adding a web-based interface.
+- Storing history of operations and results.
 
 10. Screenshots and Results
-- Detailed description of the client screen with examples of messages and responses.
-- Description of the server with console screenshots showing connection activity.
+- Client screen with input field, send button, and result display area.
+- Server screen with request and result logs.
 
 Conclusion:
-This project offers a practical view of programming distributed applications using Java, integrating a graphical user interface on the client side, and managing multiple connections on the server side concurrently. It provides a solid foundation for understanding network programming and distributed system principles.
+This project provides an educational experience in building simple distributed systems combining networking and computation, focusing on system stability and security.

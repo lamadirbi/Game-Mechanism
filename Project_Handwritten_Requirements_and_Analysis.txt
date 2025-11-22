@@ -1,37 +1,107 @@
-وصف المشروع وتحليله:
+توثيق وتحليل متطلبات المشروع
 
-هذا المشروع عبارة عن نظام موزع بسيط يتكون من جزأين رئيسيين:
+المقدمة:
 
-- الواجهة العميلة (Client) المبنية باستخدام JavaFX، والتي توفر واجهة مستخدم تسمح للمستخدم بإدخال رسالة وإرسالها إلى الخادم. الواجهة تحتوي على حقل إدخال نصي، زر إرسال، ومنطقة عرض الرد.
+في هذا المستند، نقدم المتطلبات المفصلة وتحليل المشروع الجديد "آلة حاسبة موزعة". يهدف المشروع إلى بناء نظام موزع بسيط حيث يرسل المستخدم تعبيرات رياضية إلى الخادم، الذي يقوم بحساب النتائج وإرجاعها.
 
-- الخادم (Server) الذي يستقبل اتصالات من العملاء على منفذ محدد (1234)، ويتعامل مع كل عميل في مسار منفصل (Thread) لاستقبال الرسائل وإعادة إرسال نسخة من الرسالة "Echo" كاستجابة.
+المتطلبات الوظيفية:
 
-يهدف المشروع إلى استكشاف مفاهيم بناء تطبيق موزع يشمل تطبيق عميل-خادم باستخدام Java وJavaFX، مع التركيز على التعامل مع الاتصالات الشبكية المتزامنة، تصميم واجهة المستخدم، وإدارة تدفقات البيانات.
+1. إرسال التعبيرات الرياضية:
+- يجب أن يكون العميل قادرًا على إدخال تعبير رياضي كنص وإرساله إلى الخادم.
+- الخادم يجب أن يستقبل التعبير، يحسب النتيجة، ويرسلها مرة أخرى.
 
-تحليل المشروع يشمل:
+2. التفاعل مع المستخدم:
+- عرض النتائج بشكل واضح في واجهة المستخدم.
+- إعلام المستخدم بأخطاء التعبير أو مشاكل الشبكة بشكل مناسب.
 
-- تعريف المتطلبات الوظيفية: استقبال وإرسال الرسائل، استجابة الخادم لكل عميل، التفاعل البيني في الواجهة.
-- المتطلبات غير الوظيفية: التعامل مع الأخطاء، واجهة سهلة الاستخدام، دعم اتصالات متزامنة.
-- التصميم المعماري: استخدام نمط العميل-خادم، توزيع عمليات الخادم عبر مسارات Threads متعددة، واجهة مستخدم رسومية.
-- آليات الاتصال: استخدام Sockets TCP/IP.
-- حالات الاستخدام الرئيسية: إرسال رسالة من العميل، استقبال رد الخادم، التعامل مع فقد الاتصال.
+3. التعامل مع عدة عملاء:
+- يجب أن يدعم الخادم اتصالات متعددة متزامنة.
+- كل عميل يتم التعامل معه في Thread مستقل.
+
+المتطلبات غير الوظيفية:
+
+1. استقرار النظام:
+- يجب التعامل مع انقطاع الاتصالات وأخطاء الإدخال/الإخراج بطريقة سليمة لمنع تعطل النظام.
+
+2. الأمان:
+- تحليل التعبيرات يجب أن يكون آمنًا لمنع تنفيذ أوامر ضارة.
+
+3. السهولة في الاستخدام:
+- واجهة المستخدم يجب أن تكون بسيطة وواضحة.
+
+تحليل النظام:
+
+- يستخدم النظام نموذج العميل-الخادم.
+- يتصل العميل بالخادم عبر TCP Socket.
+- يعالج الخادم الطلبات باستعمال Threads متعددة، ويستخدم محرك JavaScript لتقييم التعبيرات.
+
+التحديات والمخاطر:
+
+- التأكد من أمان تحليل التعبيرات الرياضية.
+- الحفاظ على استقرار الخادم مع تعدد العملاء.
+- توفير تجربة مستخدم سلسة رغم مشاكل الشبكة المحتملة.
+
+الاختبارات والتقييم:
+
+- التحقق من صحة التعامل مع التعبيرات الصحيحة والخاطئة.
+- اختبار استقرار الخادم مع عدة اتصالات متزامنة.
+- اختبار واجهة المستخدم والتعامل مع الأخطاء.
+
+خاتمة:
+
+يوفر هذا المستند مرجعاً مهماً لفهم متطلبات وآليات عمل مشروع الآلة الحاسبة الموزعة، ويشكل قاعدة لتطوير وتنفيذ النظام بشكل متكامل.
 
 ---
 
-Project Description and Analysis:
+Project Handwritten Requirements and Analysis
 
-This project is a simple distributed system consisting of two main parts:
+Introduction:
 
-- The client interface built using JavaFX, which provides a user interface that allows the user to enter a message and send it to the server. The interface includes a text input field, a send button, and a response display area.
+This document provides detailed requirements and analysis for the new project "Distributed Calculator". The project aims to build a simple distributed system where users send mathematical expressions to a server, which calculates the results and returns them.
 
-- The server that accepts connections from clients on a specified port (1234) and handles each client in a separate thread to receive messages and send back an "Echo" copy of the message as a response.
+Functional Requirements:
 
-The project aims to explore the concepts of building a distributed application including a client-server application using Java and JavaFX, with a focus on handling concurrent network connections, designing the user interface, and managing data flows.
+1. Sending Mathematical Expressions:
+- The client must allow entering a mathematical expression as text and send it to the server.
+- The server must receive the expression, compute the result, and send it back.
 
-Project analysis includes:
+2. User Interaction:
+- Display results clearly in the user interface.
+- Notify users properly of expression errors or network issues.
 
-- Defining functional requirements: receiving and sending messages, server response to each client, interactive user interface.
-- Non-functional requirements: error handling, user-friendly interface, support for concurrent connections.
-- Architectural design: using the client-server pattern, distributing server operations across multiple threads, graphical user interface.
-- Communication mechanisms: using TCP/IP Sockets.
-- Main use cases: sending a message from the client, receiving server response, handling connection loss.
+3. Handling Multiple Clients:
+- The server must support multiple concurrent connections.
+- Each client handled on a separate thread.
+
+Non-functional Requirements:
+
+1. System Stability:
+- Handle disconnections and I/O errors gracefully to prevent system crashes.
+
+2. Security:
+- Expression evaluation must be safe to prevent harmful command execution.
+
+3. Usability:
+- The user interface should be simple and clear.
+
+System Analysis:
+
+- The system uses client-server architecture.
+- The client connects to the server via TCP Socket.
+- The server processes requests using multiple threads and uses a JavaScript engine to evaluate expressions.
+
+Challenges and Risks:
+
+- Ensuring safe evaluation of mathematical expressions.
+- Maintaining server stability under concurrent clients.
+- Providing smooth user experience despite possible network issues.
+
+Testing and Evaluation:
+
+- Validate handling of correct and incorrect expressions.
+- Test server stability with multiple concurrent connections.
+- Test user interface and error handling.
+
+Conclusion:
+
+This document provides an important reference for understanding the requirements and operation of the distributed calculator project, forming a foundation for comprehensive development and implementation.
