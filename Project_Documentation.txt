@@ -1,14 +1,14 @@
-توثيق مشروع لعبة تخمين الرقم
+وثائق مشروع نظام قائمة مهام موزعة بسيط (محاكاة)
 
 المقدمة:
 
-يهدف هذا المشروع إلى تصميم وتطوير لعبة تخمين رقم بسيطة باستخدام JavaFX. يقوم البرنامج باختيار رقم عشوائي بين 1 و 100، ويقوم اللاعب بمحاولة تخمين هذا الرقم من خلال إدخال أرقام والحصول على تلميحات إذا كان الرقم الذي تم تخمينه أكبر أو أصغر من الرقم الصحيح.
+يهدف هذا المشروع إلى تصميم وتطوير نظام قائمة مهام موزعة بسيط مع واجهة مستخدم رسومية باستخدام JavaFX. يسمح النظام للمستخدم بإدارة مهمات عبر قائمتين منفصلتين، مع إمكانية إضافة المهام وحذفها ومزامنتها بين القائمتين بمحاكاة لعملية التوزيع.
 
-This project aims to design and develop a simple number guessing game using JavaFX. The program selects a random number between 1 and 100, and the player tries to guess this number by entering guesses and receiving hints if the guessed number is higher or lower than the correct number.
+This project aims to design and develop a simple distributed task list system with a graphical user interface using JavaFX. The system allows the user to manage tasks across two separate lists, with the ability to add, delete, and synchronize tasks between the two lists simulating distribution.
 
-توضح هذه الوثيقة تفاصيل المشروع، من المفاهيم الأساسية إلى التصميم والتنفيذ، مع شرح مكونات النظام.
+توضح هذه الوثيقة تفاصيل المشروع، بدءًا من أهدافه ومكونات النظام، إلى التصميم والتنفيذ، مع شرح مفصل لواجهة المستخدم وعملية مزامنة المهام.
 
-This document details the project from fundamental concepts to design and implementation, explaining system components.
+This document details the project from its objectives and system components to design and implementation, including a detailed explanation of the user interface and task synchronization process.
 
 الفصول:
 
@@ -16,15 +16,15 @@ Chapters:
 
 1. أهداف المشروع
 يهدف المشروع إلى:
-- تطوير لعبة بسيطة لتخمين الأرقام لتعزيز مهارات المستخدم في التخمين والمنطق.
-- بناء واجهة مستخدم رسومية بسيطة وسهلة الاستخدام باستخدام JavaFX.
-- توفير تجربة تفاعلية مع رسائل تلميحية بعد كل محاولة.
+- تطوير نظام بسيط لإدارة المهام يتيح التعامل مع قائمتين للمهام.
+- بناء واجهة مستخدم رسومية واضحة وسهلة الاستخدام باستخدام JavaFX.
+- تعزيز فهم مفاهيم التوزيع من خلال محاكاة مزامنة المهام بين قائمتين.
 
 1. Project Objectives
 The project aims to:
-- Develop a simple number guessing game to enhance user guessing and logic skills.
-- Build a simple and user-friendly graphical interface using JavaFX.
-- Provide an interactive experience with hint messages after each guess.
+- Develop a simple task management system that allows handling two separate task lists.
+- Build a clear and user-friendly graphical interface using JavaFX.
+- Enhance understanding of distributed concepts by simulating task synchronization between the lists.
 
 2. التقنيات المستخدمة
 - لغة البرمجة: Java
@@ -36,82 +36,80 @@ The project aims to:
 - UI Framework: JavaFX
 - Development Environment: Java Development Kit (JDK) and an IDE such as IntelliJ IDEA or Eclipse.
 
-3. وصف نظام اللعبة
+3. وصف نظام القائمة
 واجهة المستخدم:
-- حقل إدخال لكتابة رقم التخمين.
-- زر لتأكيد التخمين.
-- منطقة لعرض التلميحات والنتائج.
-- زر لإعادة تشغيل اللعبة.
+- تحتوي الواجهة على قائمتين مستقلة للمهام ليعرض كل منهما مجموعة المهام الخاصة به.
+- حقل إدخال نص لإضافة مهمة جديدة.
+- أزرار لإضافة مهمة، حذف مهمة من كل قائمة، ومزامنة المهام بين القائمتين.
 
-3. Game System Description
+3. System Description
 User Interface:
-- Input field to enter guess number.
-- Button to confirm the guess.
-- Area to display hints and results.
-- Button to restart the game.
+- The interface contains two independent task lists, each displaying its own set of tasks.
+- A text input field to add a new task.
+- Buttons to add a task, delete a task from either list, and synchronize tasks between the lists.
 
-آلية اللعبة:
-- يتم اختيار رقم عشوائي بين 1 و 100 في بداية اللعبة.
-- يدخل اللاعب رقم محاولته.
-- يعرض البرنامج تلميحًا إذا كان الرقم الذي تم إدخاله أكبر أو أصغر من الرقم الصحيح.
-- تنتهي اللعبة عند تخمين الرقم الصحيح مع عرض عدد المحاولات المستخدمة.
+آلية عمل التطبيق:
+- يمكن إدخال مهمة جديدة في مربع الإدخال وإضافتها إلى القائمة الأولى.
+- يمكن حذف مهمة مختارة من أي من القائمتين.
+- زر المزامنة يقوم بنسخ جميع المهام من القائمة الأولى إلى الثانية كمحاكاة لعملية موزعة.
 
-Game Mechanism:
-- A random number between 1 and 100 is selected at game start.
-- The player enters their guess.
-- The program displays a hint if the guessed number is higher or lower than the correct number.
-- The game ends upon guessing correctly, showing the number of attempts.
+Application Mechanism:
+- New tasks can be input through the text field and added to the first list.
+- Selected tasks can be deleted from either of the two lists.
+- The sync button copies all tasks from the first list to the second, simulating a distributed synchronization.
 
 4. بنية النظام
-- يتم تنفيذ اللعبة كتطبيق واجهة مستخدم واحدة (standalone).
-- لا تعتمد على أي خادم أو نظام موزع.
+- تطبيق مستقل يعمل بواجهة مستخدم رسومية باستخدام JavaFX.
+- لا يعتمد التطبيق على خوادم خارجية أو اتصالات شبكية فعلية.
 
 4. System Architecture
-- The game runs as a standalone GUI application.
-- Does not rely on any server or distributed system.
+- Standalone application with a graphical user interface built using JavaFX.
+- The application does not rely on external servers or actual network connections.
 
 5. تفاصيل التنفيذ
-- شرح مفصل لكود اللعبة في App.java باستخدام JavaFX.
-- توضح الواجهة ومكونات التحكم المختلفة وكيفية تفاعل المستخدم مع اللعبة.
+- تم تنفيذ الواجهة باستخدام مكونات JavaFX مثل ListView وTextField وButton.
+- تحتوي الشيفرة على منطق لإضافة وحذف المهام ومزامنتها مع معالجة بسيطة للحالات.
 
 5. Implementation Details
-- Detailed explanation of the game code in App.java using JavaFX.
-- Describes the interface, various controls, and how the user interacts with the game.
+- The interface is implemented using JavaFX components such as ListView, TextField, and Button.
+- Code includes logic to add, delete, and sync tasks with straightforward handling of user actions.
 
 6. التعليمات التشغيلية
-- خطوات تشغيل التطبيق باستخدام JDK و JavaFX.
-- شرح لعناصر الواجهة وكيفية اللعب.
+- لتشغيل التطبيق، قم ببناء المشروع باستخدام JDK وتشغيل الفئة الأساسية App.
+- استخدم واجهة المستخدم لإدارة المهام عبر القائمتين والأزرار المتاحة.
 
 6. Operational Instructions
-- Steps to run the application using JDK and JavaFX.
-- Explanation of UI elements and how to play.
+- To run the application, build the project using JDK and run the main class App.
+- Use the UI to manage tasks across the two lists and interact with the available buttons.
 
 7. التحديات والمشكلات
-- التعامل مع إدخال غير صالح (غير أرقام).
-- ضمان تحديث الواجهة بطريقة سلسة بعد كل محاولة.
+- الحاجة لمعالجة إدخال فارغ أو غير صالح.
+- الحفاظ على تجربة مستخدم سلسة وتحديث القوائم بشكل فوري.
+- محاكاة التوزيع ضمن تطبيق مستقل.
 
 7. Challenges and Issues
-- Handling invalid input (non-numeric).
-- Ensuring smooth UI updating after each guess.
+- Handling empty or invalid input.
+- Maintaining smooth user experience and immediate list updates.
+- Simulating distribution within a standalone application.
 
 8. التحسينات المحتملة
-- إضافة مستويات صعوبة (زيادة نطاق الرقم).
-- حفظ سجل المحاولات أو أعلى النقاط.
-- تحسين التصميم البصري للواجهة.
+- إضافة دعم لقوائم مهام متعددة أو مزامنة ثنائية الاتجاه.
+- حفظ حالة القوائم بين جلسات الاستخدام.
+- تحسين تصميم واجهة المستخدم وتفاعلها.
 
 8. Potential Improvements
-- Add difficulty levels (wider number range).
-- Save guess history or high scores.
-- Enhance UI visual design.
+- Adding support for multiple task lists or bidirectional synchronization.
+- Persisting list state between sessions.
+- Enhancing user interface design and interaction.
 
 9. الشاشات والنتائج
-- شاشة رئيسية تحتوي على حقل التخمين، أزرار اللعب وإعادة اللعب، ومنطقة عرض التلميحات وعدد المحاولات.
+- الشاشة الرئيسية تعرض قائمتين للمهام، مربع إدخال، وأزرار التحكم للإضافة، الحذف، والمزامنة.
 
 9. Screens and Results
-- Main screen with guess input, play and replay buttons, hint display area, and attempt counter.
+- The main screen displays two task lists, an input box, and control buttons to add, delete, and sync tasks.
 
 الخاتمة:
-يوفر المشروع تجربة تعليمية لتطوير تطبيق JavaFX بسيط مع منطق اللعبة وواجهة المستخدم، مع تركيز على سهولة الاستخدام والتفاعل.
+يقدم المشروع نموذجًا بسيطًا لفهم إدارة المهام والتوزيع باستخدام JavaFX، مع تركيز على تجربة مستخدم واضحة وبسيطة.
 
 Conclusion:
-The project provides an educational experience in developing a simple JavaFX application with game logic and user interface, focusing on usability and interaction.
+The project presents a simple model for understanding task management and distribution using JavaFX, focusing on a clear and straightforward user experience.

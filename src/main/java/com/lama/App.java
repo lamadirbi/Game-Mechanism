@@ -1,105 +1,85 @@
 package com.lama;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
-
-import java.util.Random;
 
 public class App extends Application {
 
-    private int targetNumber;
-    private int guessCount;
+    private ObservableList<String> taskList1;
+    private ObservableList<String> taskList2;
 
-    private TextField guessInput;
-    private Label feedbackLabel;
-    private Label guessCountLabel;
-    private Button guessButton;
-    private Button restartButton;
+    private ListView<String> listView1;
+    private ListView<String> listView2;
+
+    private TextField taskInput;
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("لعبة تخمين الرقم");
+        stage.setTitle("نظام قائمة مهام موزعة بسيط (محاكاة)");
 
-        targetNumber = generateRandomNumber();
-        guessCount = 0;
+        taskList1 = FXCollections.observableArrayList();
+        taskList2 = FXCollections.observableArrayList();
 
-        guessInput = new TextField();
-        guessInput.setPromptText("أدخل تخمينك بين 1 و 100");
+        listView1 = new ListView<>(taskList1);
+        listView2 = new ListView<>(taskList2);
 
-        guessButton = new Button("خمن");
-        guessButton.setOnAction(e -> processGuess());
+        taskInput = new TextField();
+        taskInput.setPromptText("أدخل مهمة جديدة");
 
-        restartButton = new Button("إعادة اللعبة");
-        restartButton.setOnAction(e -> restartGame());
-        restartButton.setDisable(true);
+        Button addButton = new Button("إضافة");
+        addButton.setOnAction(e -> addTask());
 
-        feedbackLabel = new Label("أدخل رقمًا وابدأ بالتخمين!");
-        guessCountLabel = new Label("عدد المحاولات: 0");
+        Button deleteButton1 = new Button("حذف من القائمة 1");
+        deleteButton1.setOnAction(e -> deleteTask(listView1, taskList1));
 
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(20));
-        layout.getChildren().addAll(guessInput, guessButton, restartButton, feedbackLabel, guessCountLabel);
+        Button deleteButton2 = new Button("حذف من القائمة 2");
+        deleteButton2.setOnAction(e -> deleteTask(listView2, taskList2));
 
-        Scene scene = new Scene(layout, 300, 200);
+        Button syncButton = new Button("مزامنة (محاكاة التوزيع)");
+        syncButton.setOnAction(e -> syncTasks());
+
+        VBox leftBox = new VBox(10, new Label("قائمة المهام 1"), listView1, deleteButton1);
+        VBox rightBox = new VBox(10, new Label("قائمة المهام 2"), listView2, deleteButton2);
+
+        HBox listsBox = new HBox(20, leftBox, rightBox);
+        VBox.setVgrow(listView1, Priority.ALWAYS);
+        VBox.setVgrow(listView2, Priority.ALWAYS);
+
+        HBox inputBox = new HBox(10, taskInput, addButton, syncButton);
+        inputBox.setPadding(new Insets(10));
+
+        VBox root = new VBox(10, listsBox, inputBox);
+        root.setPadding(new Insets(10));
+
+        Scene scene = new Scene(root, 600, 400);
         stage.setScene(scene);
         stage.show();
     }
 
-    private int generateRandomNumber() {
-        Random random = new Random();
-        return random.nextInt(100) + 1; // بين 1 و 100
+    private void addTask() {
+        String task = taskInput.getText().trim();
+        if (!task.isEmpty()) {
+            taskList1.add(task);
+            taskInput.clear();
+        }
     }
 
-    private void processGuess() {
-        String input = guessInput.getText().trim();
-        if (input.isEmpty()) {
-            feedbackLabel.setText("يرجى إدخال رقم.");
-            return;
+    private void deleteTask(ListView<String> listView, ObservableList<String> taskList) {
+        String selected = listView.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            taskList.remove(selected);
         }
-
-        int guess;
-        try {
-            guess = Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            feedbackLabel.setText("ادخل رقما صحيحا بين 1 و 100.");
-            return;
-        }
-
-        if (guess < 1 || guess > 100) {
-            feedbackLabel.setText("يجب أن يكون الرقم بين 1 و 100.");
-            return;
-        }
-
-        guessCount++;
-        guessCountLabel.setText("عدد المحاولات: " + guessCount);
-
-        if (guess == targetNumber) {
-            feedbackLabel.setText("مبروك! لقد تخمنت الرقم الصحيح!");
-            guessInput.setDisable(true);
-            guessButton.setDisable(true);
-            restartButton.setDisable(false);
-        } else if (guess < targetNumber) {
-            feedbackLabel.setText("الرقم أكبر من " + guess + ". حاول مرة أخرى.");
-        } else {
-            feedbackLabel.setText("الرقم أصغر من " + guess + ". حاول مرة أخرى.");
-        }
-
-        guessInput.clear();
     }
 
-    private void restartGame() {
-        targetNumber = generateRandomNumber();
-        guessCount = 0;
-        guessCountLabel.setText("عدد المحاولات: 0");
-        feedbackLabel.setText("أدخل رقمًا وابدأ بالتخمين!");
-        guessInput.setDisable(false);
-        guessButton.setDisable(false);
-        restartButton.setDisable(true);
-        guessInput.clear();
+    private void syncTasks() {
+        // المحاكاة: مزامنة قائمة المهام 1 إلى قائمة المهام 2
+        taskList2.setAll(taskList1);
     }
 
     public static void main(String[] args) {

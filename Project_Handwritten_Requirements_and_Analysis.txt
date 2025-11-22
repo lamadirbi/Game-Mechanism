@@ -1,91 +1,91 @@
-توثيق وتحليل متطلبات مشروع لعبة تخمين الرقم
+توثيق وتحليل متطلبات مشروع نظام قائمة مهام موزعة بسيط (محاكاة)
 
 المقدمة:
 
-في هذا المستند، نقدم المتطلبات المفصلة وتحليل مشروع "لعبة تخمين الرقم". يهدف المشروع إلى بناء لعبة بسيطة حيث يقوم البرنامج باختيار رقم عشوائي بين 1 و 100، ويحاول اللاعب تخمين هذا الرقم مع الحصول على تلميحات إذا كان الرقم أكبر أو أصغر.
+يهدف هذا المستند إلى تقديم المتطلبات التفصيلية وتحليل مشروع بسيط لنظام قائمة مهام موزعة بمحاكاة، حيث يمكن للمستخدم إدارة مهام عبر قائمتين متوازيتين باستخدام واجهة JavaFX رسومية.
 
-Introduction:
-
-This document provides detailed requirements and analysis for the "Number Guessing Game" project. The project aims to build a simple game where the program selects a random number between 1 and 100, and the player attempts to guess this number, receiving hints whether the guess is higher or lower.
+This document provides detailed requirements and analysis for a simple simulated distributed task list system where the user can manage tasks across two parallel lists using a JavaFX graphical interface.
 
 المتطلبات الوظيفية:
 
 Functional Requirements:
 
-1. إدخال التخمين:
-- يجب أن يكون المستخدم قادرًا على إدخال رقم كنص.
-- أن يتم قبول التخمين والتحقق من صحته.
+1. إدارة المهام:
+- القدرة على إضافة مهمة جديدة إلى القائمة الأولى.
+- القدرة على حذف المهام من أي من القائمتين.
+- القدرة على مزامنة المهام من القائمة الأولى إلى الثانية.
 
-1. Guess Input:
-- The user must be able to enter a number as text.
-- The guess must be accepted and validated.
+1. Task Management:
+- Ability to add a new task to the first list.
+- Ability to delete tasks from either list.
+- Ability to sync tasks from the first list to the second.
 
 2. التفاعل مع المستخدم:
-- عرض تلميحات للمستخدم إذا كان رقم التخمين أكبر أو أصغر من الرقم الصحيح.
-- إعلام المستخدم عند الفوز وعدد المحاولات.
+- واجهة مستخدم رسومية تعرض قائمتين منفصلتين للمهام.
+- أزرار لإضافة، حذف، ومزامنة المهام.
+- حقل نص لإدخال المهام الجديدة.
 
 2. User Interaction:
-- Display hints to the user if the guess is higher or lower than the correct number.
-- Notify the user upon winning and the number of attempts.
-
-3. إعادة تشغيل اللعبة:
-- إمكانية إعادة تشغيل اللعبة لاختيار رقم جديد.
-
-3. Game Restart:
-- Ability to restart the game to select a new number.
+- Graphical interface displaying two separate task lists.
+- Buttons for adding, deleting, and synchronizing tasks.
+- Text field for entering new tasks.
 
 المتطلبات غير الوظيفية:
 
 Non-functional Requirements:
 
 1. استقرار النظام:
-- التعامل مع إدخال غير صالح بطريقة سليمة دون تعطل البرنامج.
+- يجب التعامل مع الإدخال الفارغ أو غير الصحيح بدون إحداث أخطاء.
 
 1. System Stability:
-- Handle invalid input gracefully without program crashes.
+- Handle empty or invalid input without causing errors.
 
-2. السهولة في الاستخدام:
-- واجهة المستخدم يجب أن تكون بسيطة، واضحة وسهلة التفاعل.
+2. سهولة الاستخدام:
+- واجهة بسيطة وسهلة التفاعل مع تحديث فوري للقوائم.
 
 2. Usability:
-- The user interface should be simple, clear, and easy to interact with.
+- Simple and interactive interface with immediate list updates.
 
 تحليل النظام:
 
 System Analysis:
 
-- يتم تنفيذ النظام كتطبيق منفرد (standalone) باستخدام JavaFX.
-- لا يعتمد على أي نظام موزع أو اتصال بالخادم.
+- تنفيذ التطبيق كتطبيق مستقل باستخدام JavaFX.
+- محاكاة توزيع المهام عبر المزامنة بين قائمتين.
+- لا يعتمد على خوادم أو اتصالات فعلية.
 
-- The system is implemented as a standalone application using JavaFX.
-- It does not rely on any distributed system or server connection.
+- Application is implemented as a standalone JavaFX application.
+- Simulates task distribution through synchronization between two lists.
+- Does not rely on actual servers or network connections.
 
 التحديات والمخاطر:
 
 Challenges and Risks:
 
-- تأمين التعامل مع إدخال غير صالح.
-- تحديث الواجهة بشكل ديناميكي بعد كل محاولة.
+- التعامل مع إدخال فارغ أو غير صالح.
+- تحديث الواجهة بشكل سلس وفي الوقت المناسب.
+- القصور في محاكاة التوزيع الفعلي بين الأنظمة.
 
-- Securing handling of invalid input.
-- Dynamically updating the UI after each guess.
+- Handling empty or invalid input.
+- Smooth and timely UI updates.
+- Limitations in simulating real system distribution.
 
 الاختبارات والتقييم:
 
 Testing and Evaluation:
 
-- اختبار قبول التخمين الصحيح وغير الصحيح.
-- اختبار ظهور التلميحات الصحيحة.
-- اختبار إعادة تشغيل اللعبة.
+- اختبار إضافات المهام وحذفها.
+- اختبار المزامنة بين القائمتين.
+- التحقق من استقرار الواجهة أمام إدخالات خاطئة.
 
-- Test acceptance of correct and incorrect guesses.
-- Test correct display of hints.
-- Test game restart functionality.
+- Test adding and deleting tasks.
+- Test synchronization between lists.
+- Verify UI stability against invalid inputs.
 
 الخاتمة:
 
-يوفر هذا المستند مرجعاً لفهم متطلبات لعبة تخمين الرقم، ويشكل قاعدة لتطوير وتنفيذ اللعبة بشكل متكامل.
+يوفر هذا المستند مرجعًا شاملاً لمتطلبات وتحليل نظام إدارة قائمة مهام موزعة بسيط، مع التركيز على محاكاة توزيع المهام في تطبيق JavaFX.
 
 Conclusion:
 
-This document provides a reference for understanding the requirements of the number guessing game and serves as a basis for its comprehensive development and implementation.
+This document provides a comprehensive reference for the requirements and analysis of a simple distributed task list management system, focusing on task distribution simulation within a JavaFX application.
