@@ -1,165 +1,117 @@
-توثيق المشروع
+توثيق مشروع لعبة تخمين الرقم
 
 المقدمة:
 
-يهدف هذا المشروع إلى تصميم وتطوير نظام موزع بسيط لآلة حاسبة موزعة. يقوم العميل بإرسال تعبيرات رياضية (مثل 2+3 أو 5*6) إلى الخادم، الذي يقوم بحساب النتيجة وإرجاعها إلى العميل. كما يعتمد العميل على JavaFX لواجهة المستخدم الرسومية، ويستخدم الخادم Java Network Programming لمعالجة الطلبات وحساب النتائج.
+يهدف هذا المشروع إلى تصميم وتطوير لعبة تخمين رقم بسيطة باستخدام JavaFX. يقوم البرنامج باختيار رقم عشوائي بين 1 و 100، ويقوم اللاعب بمحاولة تخمين هذا الرقم من خلال إدخال أرقام والحصول على تلميحات إذا كان الرقم الذي تم تخمينه أكبر أو أصغر من الرقم الصحيح.
 
-توضح هذه الوثيقة تفاصيل المشروع، من المفاهيم الأساسية إلى التصميم والتنفيذ، مع شرح كل مكون من مكونات النظام.
+This project aims to design and develop a simple number guessing game using JavaFX. The program selects a random number between 1 and 100, and the player tries to guess this number by entering guesses and receiving hints if the guessed number is higher or lower than the correct number.
+
+توضح هذه الوثيقة تفاصيل المشروع، من المفاهيم الأساسية إلى التصميم والتنفيذ، مع شرح مكونات النظام.
+
+This document details the project from fundamental concepts to design and implementation, explaining system components.
 
 الفصول:
 
+Chapters:
+
 1. أهداف المشروع
 يهدف المشروع إلى:
-- استكشاف مفاهيم البرمجة الموزعة عبر تطبيق آلة حاسبة بسيطة.
-- تعلم تصميم نظام موزع باستخدام نموذج العميل-الخادم.
-- بناء واجهة مستخدم رسومية باستخدام JavaFX.
-- التعامل مع طلبات متزامنة من العملاء.
-- التعامل مع الأحداث والأخطاء بطريقة مناسبة لضمان استقرار النظام.
+- تطوير لعبة بسيطة لتخمين الأرقام لتعزيز مهارات المستخدم في التخمين والمنطق.
+- بناء واجهة مستخدم رسومية بسيطة وسهلة الاستخدام باستخدام JavaFX.
+- توفير تجربة تفاعلية مع رسائل تلميحية بعد كل محاولة.
+
+1. Project Objectives
+The project aims to:
+- Develop a simple number guessing game to enhance user guessing and logic skills.
+- Build a simple and user-friendly graphical interface using JavaFX.
+- Provide an interactive experience with hint messages after each guess.
 
 2. التقنيات المستخدمة
 - لغة البرمجة: Java
 - إطار العمل للواجهة: JavaFX
-- تقنيات الشبكة: TCP/IP Sockets
 - البيئة التطويرية: Java Development Kit (JDK) وبيئة تطوير متكاملة مثل IntelliJ IDEA أو Eclipse.
-
-3. وصف نظام العميل (Client)
-واجهة المستخدم:
-- حقل لإدخال التعبير الرياضي.
-- زر لإرسال التعبير إلى الخادم.
-- منطقة لعرض النتيجة أو رسائل الخطأ.
-
-آلية الإرسال:
-- يتصل العميل بالخادم عبر Socket.
-- يرسل التعبير الرياضي كنص.
-- يعرض النتيجة المستلمة من الخادم.
-
-التعامل مع الأخطاء:
-- التحقق من صحة الإدخال قبل الإرسال.
-- إظهار رسائل مناسبة في حالة أخطاء الشبكة أو التعبير.
-
-4. وصف نظام الخادم (Server)
-- يستمع الخادم على منفذ محدد لاستقبال طلبات العملاء.
-- لكل اتصال عميل، ينشئ Thread مستقل للتعامل مع الطلبات.
-- يستقبل التعبير الرياضي من العميل، يقوم بتحليله وحسابه بأمان.
-- يرسل النتيجة أو رسالة خطأ إذا كان التعبير غير صالح.
-
-التعامل مع التزامن:
-- دعم عدة عملاء متصلين في نفس الوقت بواسطة Threads متعددة.
-
-التعامل مع الأخطاء:
-- معالجة أخطاء التحليل الحسابي.
-- التعامل مع انقطاع الاتصال بطريقة مناسبة.
-
-5. بنية النظام
-- يعتمد المشروع على نموذج العميل-الخادم.
-- كل عميل يتصل بالخادم عبر TCP Socket.
-- الخادم يعالج الطلبات ويعيد النتائج بشكل متزامن.
-
-6. تفاصيل التنفيذ
-- شرح مفصل لكود العميل، موضح كيفية إنشاء واجهة JavaFX وإرسال التعبير واستقبال النتيجة.
-- شرح مفصل لكود الخادم، مع استخدام ServerSocket وThread لمعالجة الطلبات وحساب النتائج بأمان.
-
-7. التعليمات التشغيلية
-- خطوات تشغيل الخادم.
-- خطوات تشغيل العميل.
-- شرح واجهة المستخدم وتعاملها مع الإدخال والنتائج.
-
-8. التحديات والمشكلات
-- تأمين تحليل التعبيرات لتجنب الأخطاء والثغرات.
-- إدارة التزامن وعدم حجب الخادم.
-
-9. التحسينات المحتملة
-- دعم تعبيرات رياضية أكثر تعقيداً.
-- إضافة واجهة ويب إضافية.
-- تخزين تاريخ العمليات والنتائج.
-
-10. الشاشات والنتائج
-- شاشة العميل مع حقل الإدخال وزر الإرسال ومنطقة عرض النتائج.
-- شاشة الخادم مع سجل الطلبات والنتائج.
-
-الخاتمة:
-يقدم المشروع تجربة تعليمية في بناء نظم موزعة بسيطة، تجمع بين البرمجة الشبكية والمعالجة الحسابية، مع التركيز على استقرار وأمان النظام.
-
----
-
-Project Documentation
-
-Introduction:
-
-This project aims to design and develop a simple distributed system for a distributed calculator. The client sends mathematical expressions (such as 2+3 or 5*6) to the server, which calculates the result and returns it to the client. The client uses JavaFX for the graphical user interface, and the server uses Java Network Programming to process requests and compute results.
-
-This document clarifies the project details from basic concepts through design and implementation, explaining each system component.
-
-Chapters:
-
-1. Project Objectives
-The project aims to:
-- Explore distributed programming concepts through a simple calculator application.
-- Learn to design a distributed system using the client-server model.
-- Build a graphical user interface using JavaFX.
-- Handle concurrent client requests.
-- Appropriately manage events and errors to ensure system stability.
 
 2. Technologies Used
 - Programming Language: Java
 - UI Framework: JavaFX
-- Network Technologies: TCP/IP Sockets
 - Development Environment: Java Development Kit (JDK) and an IDE such as IntelliJ IDEA or Eclipse.
 
-3. Client System Description
+3. وصف نظام اللعبة
+واجهة المستخدم:
+- حقل إدخال لكتابة رقم التخمين.
+- زر لتأكيد التخمين.
+- منطقة لعرض التلميحات والنتائج.
+- زر لإعادة تشغيل اللعبة.
+
+3. Game System Description
 User Interface:
-- A field to enter mathematical expressions.
-- A button to send the expression to the server.
-- An area to display the result or error messages.
+- Input field to enter guess number.
+- Button to confirm the guess.
+- Area to display hints and results.
+- Button to restart the game.
 
-Sending Mechanism:
-- The client connects to the server via a Socket.
-- Sends the mathematical expression as text.
-- Displays the result received from the server.
+آلية اللعبة:
+- يتم اختيار رقم عشوائي بين 1 و 100 في بداية اللعبة.
+- يدخل اللاعب رقم محاولته.
+- يعرض البرنامج تلميحًا إذا كان الرقم الذي تم إدخاله أكبر أو أصغر من الرقم الصحيح.
+- تنتهي اللعبة عند تخمين الرقم الصحيح مع عرض عدد المحاولات المستخدمة.
 
-Error Handling:
-- Validates input before sending.
-- Shows appropriate messages for network or expression errors.
+Game Mechanism:
+- A random number between 1 and 100 is selected at game start.
+- The player enters their guess.
+- The program displays a hint if the guessed number is higher or lower than the correct number.
+- The game ends upon guessing correctly, showing the number of attempts.
 
-4. Server System Description
-- The server listens on a specified port for client requests.
-- For each client connection, creates an independent Thread to manage requests.
-- Receives mathematical expressions from clients, parses and safely computes results.
-- Sends the result or an error message if the expression is invalid.
+4. بنية النظام
+- يتم تنفيذ اللعبة كتطبيق واجهة مستخدم واحدة (standalone).
+- لا تعتمد على أي خادم أو نظام موزع.
 
-Concurrency Handling:
-- Supports multiple clients concurrently using multiple Threads.
+4. System Architecture
+- The game runs as a standalone GUI application.
+- Does not rely on any server or distributed system.
 
-Error Handling:
-- Handles parsing and computation errors.
-- Appropriately manages disconnections.
+5. تفاصيل التنفيذ
+- شرح مفصل لكود اللعبة في App.java باستخدام JavaFX.
+- توضح الواجهة ومكونات التحكم المختلفة وكيفية تفاعل المستخدم مع اللعبة.
 
-5. System Architecture
-- The project is based on the client-server model.
-- Each client connects to the server via a TCP Socket.
-- The server processes requests and returns results concurrently.
+5. Implementation Details
+- Detailed explanation of the game code in App.java using JavaFX.
+- Describes the interface, various controls, and how the user interacts with the game.
 
-6. Implementation Details
-- Detailed explanation of client code showing JavaFX UI creation, sending expressions, and receiving results.
-- Detailed explanation of server code using ServerSocket and Thread for safe expression evaluation.
+6. التعليمات التشغيلية
+- خطوات تشغيل التطبيق باستخدام JDK و JavaFX.
+- شرح لعناصر الواجهة وكيفية اللعب.
 
-7. Operational Instructions
-- Steps to start the server.
-- Steps to start the client.
-- Explanation of user interface interactions.
+6. Operational Instructions
+- Steps to run the application using JDK and JavaFX.
+- Explanation of UI elements and how to play.
 
-8. Challenges and Issues
-- Securing expression evaluation to avoid errors and vulnerabilities.
-- Managing concurrency without blocking the server.
+7. التحديات والمشكلات
+- التعامل مع إدخال غير صالح (غير أرقام).
+- ضمان تحديث الواجهة بطريقة سلسة بعد كل محاولة.
 
-9. Potential Improvements
-- Supporting more complex mathematical expressions.
-- Adding a web-based interface.
-- Storing history of operations and results.
+7. Challenges and Issues
+- Handling invalid input (non-numeric).
+- Ensuring smooth UI updating after each guess.
 
-10. Screenshots and Results
-- Client screen with input field, send button, and result display area.
-- Server screen with request and result logs.
+8. التحسينات المحتملة
+- إضافة مستويات صعوبة (زيادة نطاق الرقم).
+- حفظ سجل المحاولات أو أعلى النقاط.
+- تحسين التصميم البصري للواجهة.
+
+8. Potential Improvements
+- Add difficulty levels (wider number range).
+- Save guess history or high scores.
+- Enhance UI visual design.
+
+9. الشاشات والنتائج
+- شاشة رئيسية تحتوي على حقل التخمين، أزرار اللعب وإعادة اللعب، ومنطقة عرض التلميحات وعدد المحاولات.
+
+9. Screens and Results
+- Main screen with guess input, play and replay buttons, hint display area, and attempt counter.
+
+الخاتمة:
+يوفر المشروع تجربة تعليمية لتطوير تطبيق JavaFX بسيط مع منطق اللعبة وواجهة المستخدم، مع تركيز على سهولة الاستخدام والتفاعل.
 
 Conclusion:
-This project provides an educational experience in building simple distributed systems combining networking and computation, focusing on system stability and security.
+The project provides an educational experience in developing a simple JavaFX application with game logic and user interface, focusing on usability and interaction.

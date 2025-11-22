@@ -1,107 +1,91 @@
-توثيق وتحليل متطلبات المشروع
+توثيق وتحليل متطلبات مشروع لعبة تخمين الرقم
 
 المقدمة:
 
-في هذا المستند، نقدم المتطلبات المفصلة وتحليل المشروع الجديد "آلة حاسبة موزعة". يهدف المشروع إلى بناء نظام موزع بسيط حيث يرسل المستخدم تعبيرات رياضية إلى الخادم، الذي يقوم بحساب النتائج وإرجاعها.
-
-المتطلبات الوظيفية:
-
-1. إرسال التعبيرات الرياضية:
-- يجب أن يكون العميل قادرًا على إدخال تعبير رياضي كنص وإرساله إلى الخادم.
-- الخادم يجب أن يستقبل التعبير، يحسب النتيجة، ويرسلها مرة أخرى.
-
-2. التفاعل مع المستخدم:
-- عرض النتائج بشكل واضح في واجهة المستخدم.
-- إعلام المستخدم بأخطاء التعبير أو مشاكل الشبكة بشكل مناسب.
-
-3. التعامل مع عدة عملاء:
-- يجب أن يدعم الخادم اتصالات متعددة متزامنة.
-- كل عميل يتم التعامل معه في Thread مستقل.
-
-المتطلبات غير الوظيفية:
-
-1. استقرار النظام:
-- يجب التعامل مع انقطاع الاتصالات وأخطاء الإدخال/الإخراج بطريقة سليمة لمنع تعطل النظام.
-
-2. الأمان:
-- تحليل التعبيرات يجب أن يكون آمنًا لمنع تنفيذ أوامر ضارة.
-
-3. السهولة في الاستخدام:
-- واجهة المستخدم يجب أن تكون بسيطة وواضحة.
-
-تحليل النظام:
-
-- يستخدم النظام نموذج العميل-الخادم.
-- يتصل العميل بالخادم عبر TCP Socket.
-- يعالج الخادم الطلبات باستعمال Threads متعددة، ويستخدم محرك JavaScript لتقييم التعبيرات.
-
-التحديات والمخاطر:
-
-- التأكد من أمان تحليل التعبيرات الرياضية.
-- الحفاظ على استقرار الخادم مع تعدد العملاء.
-- توفير تجربة مستخدم سلسة رغم مشاكل الشبكة المحتملة.
-
-الاختبارات والتقييم:
-
-- التحقق من صحة التعامل مع التعبيرات الصحيحة والخاطئة.
-- اختبار استقرار الخادم مع عدة اتصالات متزامنة.
-- اختبار واجهة المستخدم والتعامل مع الأخطاء.
-
-خاتمة:
-
-يوفر هذا المستند مرجعاً مهماً لفهم متطلبات وآليات عمل مشروع الآلة الحاسبة الموزعة، ويشكل قاعدة لتطوير وتنفيذ النظام بشكل متكامل.
-
----
-
-Project Handwritten Requirements and Analysis
+في هذا المستند، نقدم المتطلبات المفصلة وتحليل مشروع "لعبة تخمين الرقم". يهدف المشروع إلى بناء لعبة بسيطة حيث يقوم البرنامج باختيار رقم عشوائي بين 1 و 100، ويحاول اللاعب تخمين هذا الرقم مع الحصول على تلميحات إذا كان الرقم أكبر أو أصغر.
 
 Introduction:
 
-This document provides detailed requirements and analysis for the new project "Distributed Calculator". The project aims to build a simple distributed system where users send mathematical expressions to a server, which calculates the results and returns them.
+This document provides detailed requirements and analysis for the "Number Guessing Game" project. The project aims to build a simple game where the program selects a random number between 1 and 100, and the player attempts to guess this number, receiving hints whether the guess is higher or lower.
+
+المتطلبات الوظيفية:
 
 Functional Requirements:
 
-1. Sending Mathematical Expressions:
-- The client must allow entering a mathematical expression as text and send it to the server.
-- The server must receive the expression, compute the result, and send it back.
+1. إدخال التخمين:
+- يجب أن يكون المستخدم قادرًا على إدخال رقم كنص.
+- أن يتم قبول التخمين والتحقق من صحته.
+
+1. Guess Input:
+- The user must be able to enter a number as text.
+- The guess must be accepted and validated.
+
+2. التفاعل مع المستخدم:
+- عرض تلميحات للمستخدم إذا كان رقم التخمين أكبر أو أصغر من الرقم الصحيح.
+- إعلام المستخدم عند الفوز وعدد المحاولات.
 
 2. User Interaction:
-- Display results clearly in the user interface.
-- Notify users properly of expression errors or network issues.
+- Display hints to the user if the guess is higher or lower than the correct number.
+- Notify the user upon winning and the number of attempts.
 
-3. Handling Multiple Clients:
-- The server must support multiple concurrent connections.
-- Each client handled on a separate thread.
+3. إعادة تشغيل اللعبة:
+- إمكانية إعادة تشغيل اللعبة لاختيار رقم جديد.
+
+3. Game Restart:
+- Ability to restart the game to select a new number.
+
+المتطلبات غير الوظيفية:
 
 Non-functional Requirements:
 
+1. استقرار النظام:
+- التعامل مع إدخال غير صالح بطريقة سليمة دون تعطل البرنامج.
+
 1. System Stability:
-- Handle disconnections and I/O errors gracefully to prevent system crashes.
+- Handle invalid input gracefully without program crashes.
 
-2. Security:
-- Expression evaluation must be safe to prevent harmful command execution.
+2. السهولة في الاستخدام:
+- واجهة المستخدم يجب أن تكون بسيطة، واضحة وسهلة التفاعل.
 
-3. Usability:
-- The user interface should be simple and clear.
+2. Usability:
+- The user interface should be simple, clear, and easy to interact with.
+
+تحليل النظام:
 
 System Analysis:
 
-- The system uses client-server architecture.
-- The client connects to the server via TCP Socket.
-- The server processes requests using multiple threads and uses a JavaScript engine to evaluate expressions.
+- يتم تنفيذ النظام كتطبيق منفرد (standalone) باستخدام JavaFX.
+- لا يعتمد على أي نظام موزع أو اتصال بالخادم.
+
+- The system is implemented as a standalone application using JavaFX.
+- It does not rely on any distributed system or server connection.
+
+التحديات والمخاطر:
 
 Challenges and Risks:
 
-- Ensuring safe evaluation of mathematical expressions.
-- Maintaining server stability under concurrent clients.
-- Providing smooth user experience despite possible network issues.
+- تأمين التعامل مع إدخال غير صالح.
+- تحديث الواجهة بشكل ديناميكي بعد كل محاولة.
+
+- Securing handling of invalid input.
+- Dynamically updating the UI after each guess.
+
+الاختبارات والتقييم:
 
 Testing and Evaluation:
 
-- Validate handling of correct and incorrect expressions.
-- Test server stability with multiple concurrent connections.
-- Test user interface and error handling.
+- اختبار قبول التخمين الصحيح وغير الصحيح.
+- اختبار ظهور التلميحات الصحيحة.
+- اختبار إعادة تشغيل اللعبة.
+
+- Test acceptance of correct and incorrect guesses.
+- Test correct display of hints.
+- Test game restart functionality.
+
+الخاتمة:
+
+يوفر هذا المستند مرجعاً لفهم متطلبات لعبة تخمين الرقم، ويشكل قاعدة لتطوير وتنفيذ اللعبة بشكل متكامل.
 
 Conclusion:
 
-This document provides an important reference for understanding the requirements and operation of the distributed calculator project, forming a foundation for comprehensive development and implementation.
+This document provides a reference for understanding the requirements of the number guessing game and serves as a basis for its comprehensive development and implementation.
