@@ -1,0 +1,37 @@
+وصف المشروع وتحليله:
+
+هذا المشروع عبارة عن نظام موزع بسيط يتكون من جزأين رئيسيين:
+
+- الواجهة العميلة (Client) المبنية باستخدام JavaFX، والتي توفر واجهة مستخدم تسمح للمستخدم بإدخال رسالة وإرسالها إلى الخادم. الواجهة تحتوي على حقل إدخال نصي، زر إرسال، ومنطقة عرض الرد.
+
+- الخادم (Server) الذي يستقبل اتصالات من العملاء على منفذ محدد (1234)، ويتعامل مع كل عميل في مسار منفصل (Thread) لاستقبال الرسائل وإعادة إرسال نسخة من الرسالة "Echo" كاستجابة.
+
+يهدف المشروع إلى استكشاف مفاهيم بناء تطبيق موزع يشمل تطبيق عميل-خادم باستخدام Java وJavaFX، مع التركيز على التعامل مع الاتصالات الشبكية المتزامنة، تصميم واجهة المستخدم، وإدارة تدفقات البيانات.
+
+تحليل المشروع يشمل:
+
+- تعريف المتطلبات الوظيفية: استقبال وإرسال الرسائل، استجابة الخادم لكل عميل، التفاعل البيني في الواجهة.
+- المتطلبات غير الوظيفية: التعامل مع الأخطاء، واجهة سهلة الاستخدام، دعم اتصالات متزامنة.
+- التصميم المعماري: استخدام نمط العميل-خادم، توزيع عمليات الخادم عبر مسارات Threads متعددة، واجهة مستخدم رسومية.
+- آليات الاتصال: استخدام Sockets TCP/IP.
+- حالات الاستخدام الرئيسية: إرسال رسالة من العميل، استقبال رد الخادم، التعامل مع فقد الاتصال.
+
+---
+
+Project Description and Analysis:
+
+This project is a simple distributed system consisting of two main parts:
+
+- The client interface built using JavaFX, which provides a user interface that allows the user to enter a message and send it to the server. The interface includes a text input field, a send button, and a response display area.
+
+- The server that accepts connections from clients on a specified port (1234) and handles each client in a separate thread to receive messages and send back an "Echo" copy of the message as a response.
+
+The project aims to explore the concepts of building a distributed application including a client-server application using Java and JavaFX, with a focus on handling concurrent network connections, designing the user interface, and managing data flows.
+
+Project analysis includes:
+
+- Defining functional requirements: receiving and sending messages, server response to each client, interactive user interface.
+- Non-functional requirements: error handling, user-friendly interface, support for concurrent connections.
+- Architectural design: using the client-server pattern, distributing server operations across multiple threads, graphical user interface.
+- Communication mechanisms: using TCP/IP Sockets.
+- Main use cases: sending a message from the client, receiving server response, handling connection loss.

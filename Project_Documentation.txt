@@ -1,0 +1,163 @@
+توثيق المشروع
+
+المقدمة:
+
+يهدف هذا المشروع إلى تصميم وتطوير نظام موزع بسيط يعتمد على نموذج العميل-الخادم. تم تطوير العميل باستخدام JavaFX لإنشاء واجهة مستخدم رسومية تفاعلية، بينما يدار الخادم باستخدام Java Network Programming لاستقبال ومعالجة الرسائل من العملاء وتوفير ردود فورية.
+
+تستخدم هذه الوثيقة لتوضيح تفاصيل المشروع، من المفاهيم الأساسية حتى التصميم والتنفيذ، مع شرح عميق لكل مكون من مكونات النظام.
+
+الفصول:
+
+1. أهداف المشروع
+يهدف المشروع إلى:
+- استكشاف مفاهيم البرمجة الشبكية باستخدام لغة الجافا.
+- تعلم تصميم وبناء تطبيقات موزعة تعتمد على نموذج العميل-الخادم.
+- بناء واجهة مستخدم رسومية باستخدام JavaFX.
+- التعامل مع العديد من الاتصالات المتزامنة عبر الخادم.
+- التعامل مع الأحداث والأخطاء بطريقة ملائمة.
+
+2. التقنية المستخدمة
+- لغة البرمجة: Java
+- إطار عمل الواجهة: JavaFX
+- تقنيات الشبكة: Sockets TCP/IP
+- البيئة التطويرية: Java Development Kit (JDK) وبيئة تطوير متكاملة مثل IntelliJ IDEA أو Eclipse.
+
+3. وصف نظام العميل (Client)
+واجهة المستخدم:
+- تتكون الواجهة من حقل لإدخال النص يسمح للمستخدم بكتابة رسالة معينة.
+- زر لإرسال الرسالة إلى الخادم.
+- منطقة لعرض الردود الواردة من الخادم.
+
+آلية الإرسال:
+- عند الضغط على زر الإرسال، يستخرج التطبيق محتوى حقل الإدخال ويرسله عبر اتصال Socket إلى الخادم.
+- يتم التعامل مع استجابة الخادم وعرضها فوراً في منطقة العرض.
+
+التعامل مع الأخطاء:
+- إذا كانت رسالة الإدخال فارغة، يعرض التطبيق رسالة تحذيرية للمستخدم.
+- في حالة فشل الاتصال أو وجود مشاكل في الشبكة، يتم إعلام المستخدم برسائل مناسبة.
+
+4. وصف نظام الخادم (Server)
+- يستمع الخادم على المنفذ 1234 لاستقبال اتصالات العملاء.
+- لكل اتصال عميل جديد، يتم إنشاء Thread مستقل للتعامل مع هذا العميل.
+- تستقبل الرسائل من العميل ويتم طباعتها على وحدة التحكم (Console).
+- يرسل الخادم رد Echo يتطابق مع الرسالة المستلمة.
+
+التعامل مع التزامن:
+- استخدام Threads يسمح للخادم بمعالجة اتصالات متعددة في نفس الوقت دون حجب النظام.
+- يتم توفير إدارة آمنة للموارد المشتركة إذا تطلب الأمر.
+
+التعامل مع الأخطاء:
+- يعالج الخادم الأخطاء المحتملة مثل فقد الاتصال أو مشاكل الإدخال والإخراج.
+
+5. بنية النظام
+- يعتمد المشروع على نموذج العميل-الخادم، حيث يقوم العميل بالطلب والخادم بالاستجابة.
+- الاتصال يعتمد على بروتوكول TCP لضمان موثوقية الرسائل.
+- تنفذ كل جلسة اتصال بين العميل والخادم من خلال Socket.
+
+6. تفاصيل التنفيذ
+- شرح مفصل لكود العميل، موضح كيفية إنشاء واجهة JavaFX والربط بالشبكة.
+- شرح مفصل لكود الخادم، موضح كيفية استخدام ServerSocket وThread لإدارة الاتصالات.
+
+7. التعليمات التشغيلية
+- خطوات تشغيل الخادم.
+- خطوات تشغيل العميل.
+- شرح واجهة المستخدم وتعاملها مع الرسائل.
+
+8. التحديات والمشكلات
+- مناقشة صعوبات التعامل مع تزامن الاتصالات.
+- كيفية التعامل مع استقرار التطبيق في ظل حدوث أخطاء في الشبكة.
+
+9. التحسينات المحتملة
+- إضافة آلية تسجيل الرسائل.
+- دعم بروتوكولات أخرى.
+- تحسين الواجهة لإضافة ميزات إضافية مثل قائمة الاتصالات النشطة.
+
+10. الشاشات والنتائج
+- وصف تفصيلي لشاشة العميل مع عرض أمثلة على الرسائل والردود.
+- وصف للخادم مع لقطات شاشة للـ Console يظهر فيها نشاط الاتصالات.
+
+الخاتمة:
+قدم هذا المشروع نظرة عملية على برمجة تطبيقات موزعة باستخدام الجافا، مع دمج واجهة المستخدم الرسومية في العميل، وإدارة اتصالات متعددة في الخادم بطريقة متزامنة. يعتبر أساساً جيداً لفهم البرمجة الشبكية ومبادئ البرامج الموزعة.
+
+---
+
+Project Documentation
+
+Introduction:
+
+This project aims to design and develop a simple distributed system based on the client-server model. The client is built using JavaFX to create an interactive graphical user interface, while the server is managed using Java Network Programming to receive and process messages from clients and provide immediate responses.
+
+This document clarifies the project details, from basic concepts through design and implementation, with an in-depth explanation of each system component.
+
+Chapters:
+
+1. Project Objectives
+The project aims to:
+- Explore network programming concepts using the Java language.
+- Learn to design and build distributed applications based on the client-server model.
+- Build a graphical user interface using JavaFX.
+- Handle multiple concurrent connections through the server.
+- Effectively manage events and errors.
+
+2. Technologies Used
+- Programming Language: Java
+- UI Framework: JavaFX
+- Network Technologies: TCP/IP Sockets
+- Development Environment: Java Development Kit (JDK) and an Integrated Development Environment such as IntelliJ IDEA or Eclipse.
+
+3. Client System Description
+User Interface:
+- The interface consists of a text input field where users can type a message.
+- A button to send the message to the server.
+- An area to display responses received from the server.
+
+Sending Mechanism:
+- When the send button is pressed, the application extracts the content of the input field and sends it through a Socket connection to the server.
+- The server's response is handled and immediately displayed in the display area.
+
+Error Handling:
+- If the input message is empty, the application displays a warning message to the user.
+- If the connection fails or network problems occur, appropriate messages are displayed to the user.
+
+4. Server System Description
+- The server listens on port 1234 for client connections.
+- For each new client connection, an independent Thread is created to handle the client.
+- Messages are received from the client and printed on the console.
+- The server sends an Echo response matching the received message.
+
+Concurrency Handling:
+- Using Threads allows the server to handle multiple connections simultaneously without blocking the system.
+- Safe management of shared resources is provided if necessary.
+
+Error Handling:
+- The server handles potential errors such as connection loss or input/output problems.
+
+5. System Architecture
+- The project is based on the client-server pattern, where the client requests, and the server responds.
+- The connection relies on the TCP protocol to ensure message reliability.
+- Each session between client and server is implemented through a Socket.
+
+6. Implementation Details
+- Detailed explanation of client code, illustrating how to create the JavaFX interface and network connection.
+- Detailed explanation of server code, demonstrating use of ServerSocket and Thread to manage connections.
+
+7. Operational Instructions
+- Steps for running the server.
+- Steps for running the client.
+- Explanation of the user interface and message handling.
+
+8. Challenges and Issues
+- Discussion of difficulties in managing concurrent connections.
+- How to maintain application stability in the event of network errors.
+
+9. Potential Improvements
+- Adding message logging features.
+- Supporting additional protocols.
+- Enhancing the interface to add features such as an active connections list.
+
+10. Screenshots and Results
+- Detailed description of the client screen with examples of messages and responses.
+- Description of the server with console screenshots showing connection activity.
+
+Conclusion:
+This project offers a practical view of programming distributed applications using Java, integrating a graphical user interface on the client side, and managing multiple connections on the server side concurrently. It provides a solid foundation for understanding network programming and distributed system principles.
